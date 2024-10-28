@@ -1,12 +1,12 @@
-import Header from "@/components/header";
 import HomePage from "./home-ui";
+import { auth } from "@/auth";
 
+export default async function Home() {
+  const session = await auth();
 
-export default function Home() {
-
+  if (!session) return <div>Not authenticated</div>;
   return (
     <div>
-      <Header />
       <HomePage />
     </div>
   );

@@ -1,14 +1,5 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+export { auth as middleware } from "@/auth";
 
-export function middleware(request: NextRequest) {
-  const accessToken = request.cookies.get("accessToken");
-  if (!accessToken) {
-    return NextResponse.redirect(new URL("/login", request.url));
-  } else {
-  }
-  return NextResponse.next()
-}
 export const config = {
-  matcher: ["/", "/home"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
