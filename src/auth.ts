@@ -54,7 +54,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             throw new Error("Invalid login credentials.");
           }
           const res = await response.json();
-
+          
           if (res) {
             return {
               id: res?.data?.user?.id,

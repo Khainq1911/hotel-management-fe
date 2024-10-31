@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Card, message } from "antd";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import {
   PlusOutlined,
@@ -9,6 +9,7 @@ import {
   CloseCircleOutlined,
   MoneyCollectOutlined,
 } from "@ant-design/icons";
+import { isEmployee } from "@/hooks/useAuth";
 
 interface Room {
   room_id: string;
@@ -25,11 +26,6 @@ interface Room {
 }
 
 const roomStatus = ["Available", "Booked"];
-
-let floor: { label: string; children: Room[] }[] = [
-  { label: "Floor 1", children: [] },
-  { label: "Floor 2", children: [] },
-];
 
 export default function HomePage() {
   const { data: session } = useSession();
@@ -50,6 +46,9 @@ export default function HomePage() {
           },
         });
         if (!response.ok) {
+          if (response.status === 401) {
+            await signOut();
+          }
           throw new Error(`Response status: ${response.status}`);
         }
 
@@ -78,11 +77,11 @@ export default function HomePage() {
         message.error("Failed to get rooms list");
       }
     }
-
     if (accessToken) {
       getRoomsList();
     }
   }, [accessToken]);
+  isEmployee();
   return (
     <div className="bg-[#F0F2F5] h-screen px-[20px]">
       <div className="flex w-full justify-between items-center h-[80px]">
