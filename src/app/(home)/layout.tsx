@@ -13,10 +13,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body>
-        <SessionProvider>
-          <Header />
-          <div className="pt-[60px]">{children}</div>
-        </SessionProvider>
+        <div>
+          <SessionProvider>
+            <Header />
+            <div className="pt-[60px]">{children}</div>
+          </SessionProvider>
+        </div>
       </body>
     </html>
   );
