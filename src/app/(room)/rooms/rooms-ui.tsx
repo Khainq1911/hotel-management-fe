@@ -10,6 +10,7 @@ import {
   MoneyCollectOutlined,
 } from "@ant-design/icons";
 import { isEmployee } from "@/hooks/useAuth";
+import RoomModal from "@/components/roomModal";
 
 interface Room {
   room_id: string;
@@ -35,7 +36,10 @@ export default function HomePage() {
     { label: "Floor 1", children: [] },
     { label: "Floor 2", children: [] },
   ]);
-  const [availableRoomNumber, setAvailableRoomNumber] = useState();
+  const [availableRoomNumber, setAvailableRoomNumber] = useState<number>();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  
   useEffect(() => {
     async function getRoomsList() {
       const url = "http://localhost:1912/rooms";
@@ -77,7 +81,6 @@ export default function HomePage() {
 
         setRoomsList(res.data);
       } catch (error) {
-        console.log(error);
         message.error("Failed to get rooms list");
       }
     }
@@ -85,7 +88,7 @@ export default function HomePage() {
       getRoomsList();
     }
   }, [accessToken]);
-  isEmployee();
+
   return (
     <div className="bg-[#F0F2F5] h-screen px-[50px]">
       <div className="flex  px-[50px] h-[80px] items-center">
@@ -123,6 +126,7 @@ export default function HomePage() {
                 {item.children.map((room, index) => {
                   return (
                     <Card
+                      onClick={() => setIsModalOpen(true)}
                       key={index}
                       title={room.room_name}
                       className={`w-[15%] mr-4 cursor-pointer ${

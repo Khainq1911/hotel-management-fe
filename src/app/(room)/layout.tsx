@@ -15,7 +15,7 @@ export default function RootLayout({
       <body>
         <SessionProvider>
           <Header />
-          <section className="pt-[60px]">{children}</section>
+          <div className="pt-[60px]">{children}</div>
         </SessionProvider>
       </body>
     </html>
