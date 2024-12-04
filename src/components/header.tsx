@@ -1,7 +1,11 @@
 "use client";
 
 import { signOut, useSession } from "next-auth/react";
-import { DownOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  DownOutlined,
+  OrderedListOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Dropdown, Space } from "antd";
 import { useEffect, useState } from "react";
@@ -31,7 +35,7 @@ const items: MenuProps["items"] = [
 let header: { icon: JSX.Element; route: string; checked: boolean }[] = [
   {
     icon: <HomeOutlined />,
-    route: "/home",
+    route: "/rooms",
     checked: false,
   },
   {
@@ -40,8 +44,8 @@ let header: { icon: JSX.Element; route: string; checked: boolean }[] = [
     checked: false,
   },
   {
-    icon: <UserOutlined />,
-    route: "#",
+    icon: <OrderedListOutlined />,
+    route: "/rooms-list",
     checked: false,
   },
   {
@@ -62,12 +66,13 @@ export default function Header() {
     setIsDropdownOpen(visible);
   };
 
-  useEffect(() => {
-    header = header.map((item) => ({
-      ...item,
-      checked: item.route === pathname,
-    }));
-  }, [pathname]);
+  const checkNavigation = () => {
+    header.forEach((item) => {
+      item.checked = item.route === pathname;
+    });
+  };
+
+  checkNavigation();
 
   return (
     <nav className="flex justify-between items-center h-[60px] w-full shadow px-5 fixed top-0 left-0 z-30 bg-white">

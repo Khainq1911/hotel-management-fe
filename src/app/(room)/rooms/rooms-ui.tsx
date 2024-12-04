@@ -67,6 +67,10 @@ export default function HomePage() {
             label: "Floor 2",
             children: res.data.filter((room: Room) => room.floor === 2),
           },
+          {
+            label: "Floor 3",
+            children: res.data.filter((room: Room) => room.floor === 3),
+          },
         ];
         setFloor(categorizedFloors);
 
@@ -86,36 +90,26 @@ export default function HomePage() {
   }, [accessToken]);
 
   return (
-    <div className="bg-[#F0F2F5] h-screen px-[20px]">
-      <RoomModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-      />
-      <div className="flex w-full justify-between items-center h-[80px]">
-        <div className="flex justify-between  items-center">
-          {roomStatus.map((status, index) => (
+    <div className="bg-[#F0F2F5] h-screen px-[50px]">
+      <div className="flex  px-[50px] h-[80px] items-center">
+        {roomStatus.map((status, index) => (
+          <div
+            className="flex justify-between w-[130px] items-center bg-white p-2 rounded-2xl shadow mr-5"
+            key={index}
+          >
             <div
-              className="flex justify-between w-[130px] items-center bg-white p-2 rounded-2xl shadow mr-5"
-              key={index}
-            >
-              <div
-                className={`w-4 h-4 ${
-                  status === "Booked" ? "bg-[#D9D9D9]" : "bg-[#4DE804]"
-                } rounded-full`}
-              ></div>
-              {status}{" "}
-              {availableRoomNumber
-                ? status === "Available"
-                  ? `(${availableRoomNumber})`
-                  : `(${RoomsList.length - availableRoomNumber})`
-                : null}
-            </div>
-          ))}
-        </div>
-
-        <Button type="primary" shape="round">
-          <PlusOutlined /> Add Room
-        </Button>
+              className={`w-4 h-4 ${
+                status === "Booked" ? "bg-[#D9D9D9]" : "bg-[#4DE804]"
+              } rounded-full`}
+            ></div>
+            {status}{" "}
+            {availableRoomNumber
+              ? status === "Available"
+                ? `(${availableRoomNumber})`
+                : `(${RoomsList.length - availableRoomNumber})`
+              : null}
+          </div>
+        ))}
       </div>
 
       <div>

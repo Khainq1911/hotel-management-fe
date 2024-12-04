@@ -11,14 +11,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning={true}>
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <div>
-          <SessionProvider>
-            <Header />
-            <div className="pt-[60px]">{children}</div>
-          </SessionProvider>
-        </div>
+        <SessionProvider>
+          <Header />
+          <div className="pt-[60px]">{children}</div>
+        </SessionProvider>
       </body>
     </html>
   );

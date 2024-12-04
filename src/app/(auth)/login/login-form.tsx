@@ -21,7 +21,7 @@ const LoginPage: React.FC = () => {
       message.error("error");
     } else {
       message.success("success");
-      route.push("/home");
+      route.push("/rooms");
     }
   };
 
@@ -53,9 +53,8 @@ const LoginPage: React.FC = () => {
                   { required: true, message: "Please input your Password!" },
                 ]}
               >
-                <Input
+                <Input.Password
                   prefix={<LockOutlined />}
-                  type="password"
                   placeholder="Password"
                   className="mt-1"
                 />
